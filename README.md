@@ -86,6 +86,132 @@ type user = {
 };
 ```
 
+---
+
+## 🧭 How to Study This Lab
+
+This repository is designed to be used as an interactive interview-preparation notebook rather than a finished product. Each lesson is intentionally small so that you can read the complete component, predict its output, and then verify your understanding in the browser.
+
+### 1️⃣ Start with the active lesson
+
+Open `src/App.tsx` to see which component is currently rendered. The parent component imports a lesson, places it inside `Comp`, and passes any required values or callbacks:
+
+```tsx
+<Comp>
+	<Props name="Bhabesh" age={age} />
+	<Button label="Hi me" handleClick={message} />
+</Comp>
+```
+
+Only the examples that are included in the returned JSX appear on the page. The other lessons remain available as imports and JSX blocks that can be enabled when you are ready to practise them.
+
+### 2️⃣ Read the types before the JSX
+
+For each lesson, identify the data contract first:
+
+- `ReactNode` describes content accepted by the reusable `Comp` wrapper.
+- `string[]` and object types describe collection data in `ArrObj`.
+- `boolean` controls the login message in `ConditionalRendering`.
+- `{ name: string; age: number }` describes the data accepted by `Props`.
+- `React.MouseEventHandler<HTMLButtonElement>` describes the button callback.
+- `ChangeEvent<HTMLInputElement>` describes the typed input event in `FuncEvent`.
+
+This habit makes the component API clear before you follow the render logic.
+
+### 3️⃣ Predict, change, and explain
+
+For every example, use this short practice loop:
+
+1. Predict what the browser will display.
+2. Change one value, condition, prop, or callback.
+3. Run the app and compare the result with your prediction.
+4. Explain why React rendered that result.
+5. Run the type checker and linter before keeping the change.
+
+This turns each small edit into an interview answer backed by working code.
+
+## 🛠️ Available Commands
+
+Run these commands from the project directory:
+
+| Command | Purpose |
+| :--- | :--- |
+| `npm install` | Install the project dependencies. |
+| `npm run dev` | Start Vite's development server with hot module replacement. |
+| `npm run lint` | Check the project with ESLint. |
+| `npm run build` | Run the TypeScript build and generate the production bundle. |
+| `npm run preview` | Preview the generated production build locally. |
+
+A useful verification sequence after editing a lesson is:
+
+```bash
+npm run lint
+npm run build
+```
+
+## 🎤 Interview Discussion Checklist
+
+Use the project to practise answering these questions in your own words:
+
+### Components and props
+
+- What is the difference between a parent component and a child component?
+- Why are props useful for making `Button` reusable?
+- Why should a child treat props as read-only?
+- Why is a callback passed as a prop instead of placing the behavior inside every button?
+
+### Rendering and data
+
+- How does `.map()` turn an array into a list of JSX elements?
+- Why does every mapped element need a stable `key`?
+- Why is an object type useful when rendering user data?
+- What is the difference between rendering a `string[]` and rendering an object array?
+
+### Conditions and events
+
+- How does the ternary operator choose between two JSX branches?
+- What would change if `isLoggedIn` became `false`?
+- What does `React.MouseEventHandler<HTMLButtonElement>` guarantee?
+- What information can be read from `ChangeEvent<HTMLInputElement>`?
+
+### Styling and application setup
+
+- When is an inline style useful, and what are its limitations?
+- Why do CSS Modules help avoid class-name collisions?
+- What does `StrictMode` do during development?
+- What role does `createRoot` play in starting the React application?
+
+## 🚀 Next Practice Steps
+
+The current examples provide a foundation for adding more interview topics without changing the existing lessons:
+
+- Add a local `useState` value to switch `isLoggedIn` with a button.
+- Move the user list into props so `ArrObj` can render different collections.
+- Add a reusable prop type instead of repeating inline object types.
+- Add a disabled state to `Button` and pass it from `App`.
+- Add controlled input state to `FuncEvent` and display the typed value on screen.
+- Add an empty-state message when the users array has no items.
+- Add a loading and error branch to practise real API-style conditional rendering.
+
+Keep each experiment small and isolated. The goal is to understand the React and TypeScript decision behind the code, not to hide several concepts inside one large component.
+
+## ✅ Definition of Done for a Lesson
+
+A lesson is ready to discuss in an interview when you can:
+
+- Identify its inputs and output.
+- Explain every type used by the component.
+- Describe why each JSX element is rendered.
+- Change the example without introducing a type error.
+- Explain how the component could be made more reusable.
+- Validate the change with `npm run lint` and `npm run build`.
+
+---
+
+## 📚 Learning Philosophy
+
+React readiness comes from repetition with feedback. Read the component, make one deliberate change, observe the browser, inspect the types, and explain the result aloud. This lab keeps the examples deliberately focused so the important ideas remain visible.
+
 This gives every object a predictable structure:
 
 | Property | Type | Example |
