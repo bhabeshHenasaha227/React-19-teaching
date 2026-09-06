@@ -42,6 +42,8 @@ Here is the exact purpose of every file in the repository:
 * 📄 **`src/components/Comp.tsx`** — Reusable layout container demonstrating component composition with `React.ReactNode`.
 * 📄 **`src/components/arrayandobject/ArrObj.tsx`** — Module showcasing a typed user array, object looping, displayed indexes, and unique `key` props.
 * 📄 **`src/components/conditionalrendering/ConditionalRendering.tsx`** — Conditional UI example showing different messages based on a login state.
+* 📄 **`src/components/prop/Props.tsx`** — Typed props example receiving and displaying a `name` string and an `age` number.
+* 📄 **`src/components/prop/Button.tsx`** — Reusable button receiving a label and a typed mouse-click handler as props.
 * 📄 **`src/components/functionEvent/FuncEvent.tsx`** — Interactive component demonstrating click handling and typed input events (`ChangeEvent<HTMLInputElement>`).
 * 📄 **`src/components/css-use-example/Css.tsx`** — Styling sandbox demonstrating dynamic inline styles side-by-side with CSS Modules.
 * 🎨 **`src/components/css-use-example/Css.module.css`** — Scoped CSS Module providing class isolation without global name collisions.
@@ -61,6 +63,7 @@ Here is the exact purpose of every file in the repository:
 | **Component Composition** | Passing typed `children` using `ReactNode` inside wrappers | [`Comp.tsx`](src/components/Comp.tsx) |
 | **Arrays & Objects** | Mapping typed user objects, displaying fields, indexes, and key handling | [`ArrObj.tsx`](src/components/arrayandobject/ArrObj.tsx) |
 | **Conditional Rendering** | Showing different JSX based on a boolean login value | [`ConditionalRendering.tsx`](src/components/conditionalrendering/ConditionalRendering.tsx) |
+| **Props** | Passing typed text, numbers, labels, and event handlers to child components | [`Props.tsx`](src/components/prop/Props.tsx) |
 | **Functions & Events** | Type-safe click handlers and input event tracking | [`FuncEvent.tsx`](src/components/functionEvent/FuncEvent.tsx) |
 | **Styling Techniques** | Inline style objects vs scoped CSS Modules | [`Css.tsx`](src/components/css-use-example/Css.tsx) |
 | **App Entry Point** | `StrictMode`, `createRoot`, and initial stylesheet mounts | [`main.tsx`](src/main.tsx) |
@@ -202,6 +205,91 @@ To practise the example, change `isLoggedIn` to `false` and observe the message 
 
 ---
 
+## 🧩 Current Props Lesson
+
+The active lesson in `src/App.tsx` demonstrates how a parent component passes data and behavior to reusable child components. The `Props` and `Button` components are rendered inside the `Comp` wrapper.
+
+### 📦 Typed Data Props
+
+`Props.tsx` receives `name` and `age` through a typed props object:
+
+```tsx
+export default function Props({ name, age }: { name: string; age: number }) {
+	return (
+		<div>
+			hi my name is {name} and my age is {age}
+		</div>
+	);
+}
+```
+
+The inline type requires:
+
+| Prop | Type | Current value |
+| :--- | :--- | :--- |
+| `name` | `string` | `"Bhabesh"` |
+| `age` | `number` | `20` |
+
+The parent stores the age in a variable and passes both values into the component:
+
+```tsx
+const age = 20;
+
+<Props name="Bhabesh" age={age} />
+```
+
+This demonstrates that props are read-only values supplied by the parent. TypeScript also prevents the component from receiving the wrong data type, such as a number for `name` or a string for `age`.
+
+### 🖱️ Function Props in a Reusable Button
+
+`Button.tsx` accepts both visible button text and a click callback:
+
+```tsx
+export default function Button({
+	label,
+	handleClick,
+}: {
+	label: string;
+	handleClick: React.MouseEventHandler<HTMLButtonElement>;
+}) {
+	return (
+		<div>
+			<button onClick={handleClick}>{label}</button>
+		</div>
+	);
+}
+```
+
+The parent supplies two different labels and behaviors:
+
+```tsx
+<Button label="Hi me" handleClick={message} />
+<Button label="Bye Me" handleClick={byeMessage} />
+```
+
+This example practises four important React patterns:
+
+- 🧾 **Destructured props** — Child components read named values directly from the props object.
+- 🔤 **Typed data** — `name`, `label`, and `age` each declare the type of value they accept.
+- 🖱️ **Function as a prop** — The parent passes behavior without the child needing to know the implementation.
+- ♻️ **Component reuse** — One `Button` component renders multiple buttons with different content and actions.
+
+### 👀 Current Output
+
+The active page displays:
+
+```text
+hi my name is Bhabesh and my age is 20
+
+[Hi me]  [Bye Me]
+```
+
+Clicking `Hi me` runs the `message` function and shows `hi this is Bhabesh`. Clicking `Bye Me` runs `byeMessage` and shows `hi Bye`.
+
+To practise the example, change the `name` or `age` passed to `Props`, add another button label, or pass a new callback to the reusable `Button` component.
+
+---
+
 ## 🌳 Repository Tree
 
 ```text
@@ -218,6 +306,9 @@ React-19-teaching/
 │       │   └── 📄 ArrObj.tsx          # Typed object looping & list rendering
 │       ├── 📁 conditionalrendering/
 │       │   └── 📄 ConditionalRendering.tsx # Boolean-based conditional UI
+│       ├── 📁 prop/
+│       │   ├── 📄 Props.tsx                # Typed data props
+│       │   └── 📄 Button.tsx               # Typed label and click props
 │       ├── 📁 functionEvent/
 │       │   └── 📄 FuncEvent.tsx       # Typed events & form controls
 │       └── 📁 css-use-example/
