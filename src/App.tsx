@@ -1,5 +1,6 @@
-import ArrObj from "./components/arrayandobject/ArrObj"
+// import ArrObj from "./components/arrayandobject/ArrObj"
 import Comp from "./components/Comp"
+import ConditionalRendering from "./components/conditionalrendering/ConditionalRendering"
 // import Css from "./components/css-use-example/Css"
 // import FuncEvent from "./components/functionEvent/FuncEvent"
 function App() {
@@ -11,7 +12,8 @@ function App() {
           {/* <Css/> */}
 
           {/* <FuncEvent/> */}
-          <ArrObj/>
+          {/* <ArrObj/> */}
+          <ConditionalRendering/>
         </Comp>
       </section>
 

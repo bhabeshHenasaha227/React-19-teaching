@@ -41,6 +41,7 @@ Here is the exact purpose of every file in the repository:
 ### 🧩 Components & Lesson Modules
 * 📄 **`src/components/Comp.tsx`** — Reusable layout container demonstrating component composition with `React.ReactNode`.
 * 📄 **`src/components/arrayandobject/ArrObj.tsx`** — Module showcasing a typed user array, object looping, displayed indexes, and unique `key` props.
+* 📄 **`src/components/conditionalrendering/ConditionalRendering.tsx`** — Conditional UI example showing different messages based on a login state.
 * 📄 **`src/components/functionEvent/FuncEvent.tsx`** — Interactive component demonstrating click handling and typed input events (`ChangeEvent<HTMLInputElement>`).
 * 📄 **`src/components/css-use-example/Css.tsx`** — Styling sandbox demonstrating dynamic inline styles side-by-side with CSS Modules.
 * 🎨 **`src/components/css-use-example/Css.module.css`** — Scoped CSS Module providing class isolation without global name collisions.
@@ -59,6 +60,7 @@ Here is the exact purpose of every file in the repository:
 | :--- | :--- | :--- |
 | **Component Composition** | Passing typed `children` using `ReactNode` inside wrappers | [`Comp.tsx`](src/components/Comp.tsx) |
 | **Arrays & Objects** | Mapping typed user objects, displaying fields, indexes, and key handling | [`ArrObj.tsx`](src/components/arrayandobject/ArrObj.tsx) |
+| **Conditional Rendering** | Showing different JSX based on a boolean login value | [`ConditionalRendering.tsx`](src/components/conditionalrendering/ConditionalRendering.tsx) |
 | **Functions & Events** | Type-safe click handlers and input event tracking | [`FuncEvent.tsx`](src/components/functionEvent/FuncEvent.tsx) |
 | **Styling Techniques** | Inline style objects vs scoped CSS Modules | [`Css.tsx`](src/components/css-use-example/Css.tsx) |
 | **App Entry Point** | `StrictMode`, `createRoot`, and initial stylesheet mounts | [`main.tsx`](src/main.tsx) |
@@ -141,6 +143,65 @@ To practise the example, add another object to `users`, change a field value, or
 
 ---
 
+## 🔐 Current Conditional Rendering Lesson
+
+The active lesson in `src/App.tsx` is now `ConditionalRendering`. It is rendered inside the reusable `Comp` wrapper and demonstrates how React chooses which JSX to display from a boolean value.
+
+### 🎛️ Login State
+
+The component uses a boolean to represent whether the user is logged in:
+
+```tsx
+const isLoggedIn: boolean = true;
+```
+
+In a real application, this value could come from an API response, authentication context, or application state. Here it is kept as a fixed value so the conditional-rendering behavior is easy to understand.
+
+### 🔀 Ternary Conditional
+
+The `displayMessage` function accepts the login state and returns a typed React element:
+
+```tsx
+function displayMessage(isLoggedIn: boolean): ReactElement {
+	const message: React.JSX.Element = isLoggedIn
+		? <h1>Hi I am logged In</h1>
+		: <h1>Please logged in</h1>;
+
+	return message;
+}
+```
+
+This uses the ternary operator:
+
+- ✅ When `isLoggedIn` is `true`, React renders `Hi I am logged In`.
+- 🔒 When `isLoggedIn` is `false`, React renders `Please logged in`.
+- 🧠 The `boolean` type ensures the function receives a true or false value.
+- 🧾 The `ReactElement` return type documents that the function returns renderable JSX.
+
+The result is rendered directly inside a `<div>`:
+
+```tsx
+return (
+	<div>
+		{displayMessage(isLoggedIn)}
+	</div>
+);
+```
+
+The heading is returned by the conditional function itself and is not wrapped inside another `<h1>`. Keeping the markup valid prevents browsers from repairing the DOM structure differently from React, which can lead to hydration-style mismatch warnings.
+
+### 👀 Current Output
+
+Because `isLoggedIn` is currently `true`, the active page displays:
+
+```text
+Hi I am logged In
+```
+
+To practise the example, change `isLoggedIn` to `false` and observe the message change to `Please logged in`.
+
+---
+
 ## 🌳 Repository Tree
 
 ```text
@@ -155,6 +216,8 @@ React-19-teaching/
 │       ├── 📄 Comp.tsx                # Typed wrapper component
 │       ├── 📁 arrayandobject/
 │       │   └── 📄 ArrObj.tsx          # Typed object looping & list rendering
+│       ├── 📁 conditionalrendering/
+│       │   └── 📄 ConditionalRendering.tsx # Boolean-based conditional UI
 │       ├── 📁 functionEvent/
 │       │   └── 📄 FuncEvent.tsx       # Typed events & form controls
 │       └── 📁 css-use-example/
